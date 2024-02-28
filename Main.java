@@ -22,13 +22,12 @@ public class Main {
       int daysPerMonth = 1;
       int monLength = 6;
       int tueLength = 7;
-      int wedLength = 9;
       int thrLength = 8;
-      int friLength = 8;
+      int friLength = 6;
       int satLength = 8;
       int sunLength = 6;
-        
-      System.out.println("Spring 2024 - CS1083 - Section 003 - Project 1 - Trucking - written by Joe Beltran");  
+      int firstDay;
+      int totalMiles = 0;
         
       for (int i = 7; i > 0; --i) {
          if (i == 7) {
@@ -61,8 +60,9 @@ public class Main {
             milesSun = scnr.nextInt();
          }
       }
-        
-        
+
+      System.out.println("Spring 2024 - CS1083 - Section 003 - Project 1 - Trucking - written by Joe Beltran");    
+      System.out.println(" ");  
       System.out.println("Miles driven on " + mon + ": " + milesMon);
       System.out.println("Miles driven on " + tue + ": " + milesTue);
       System.out.println("Miles driven on " + wed + ": " + milesWed);
@@ -70,6 +70,9 @@ public class Main {
       System.out.println("Miles driven on " + fri + ": " + milesFri);
       System.out.println("Miles driven on " + sat + ": " + milesSat);
       System.out.println("Miles driven on " + sun + ": " + milesSun);
+      System.out.println("First day of the month (0-Mon, 1-Tue, 2-Wed, 3-Thu, 4-Fri, 5-Sat, 6-Sun)");
+      firstDay = scnr.nextInt();
+      System.out.println(" ");
 
       // creat a table header with column names (Week, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, Total/Week)
 
@@ -104,27 +107,47 @@ public class Main {
       }
       System.out.println("Total/Week");
 
-      // create a row with the week number, miles driven each day, and the total miles driven for the week
-      for (int i = 1; i <= 5; ++i) {
+      // create rows with the week number, miles driven each day, and the total miles driven for the week
+      for (int i = 1; i <= 6; ++i) {
          System.out.printf("%-9s", i);
-         System.out.printf("%-9s", daysPerMonth + "-" + milesMon);
-         daysPerMonth++;
-         System.out.printf("%-9s", daysPerMonth + "-" + milesTue);
-         daysPerMonth++;
-         System.out.printf("%-9s", daysPerMonth + "-" + milesWed);
-         daysPerMonth++;
-         System.out.printf("%-9s", daysPerMonth + "-" + milesThr);
-         daysPerMonth++;
-         System.out.printf("%-9s", daysPerMonth + "-" + milesFri);
-         daysPerMonth++;
-         System.out.printf("%-9s", daysPerMonth + "-" + milesSat);
-         daysPerMonth++;
-         System.out.printf("%-9s", daysPerMonth + "-" + milesSun);
-         daysPerMonth++;
-         System.out.printf("%-9s\n", "W" + i + "-" + (milesMon + milesTue + milesWed + milesThr + milesFri + milesSat + milesSun));
-         // System.out.printf("%-9d%-9d%-9d%-9d%-9d%-9d%-9d%-9d%-9d\n", i, milesMon, milesTue, milesWed, milesThr, milesFri, milesSat, milesSun, (milesMon + milesTue + milesWed + milesThr + milesFri + milesSat + milesSun));
-         
+         int totalWMiles = 0;
+     
+         for (int j = 0; j < 7; ++j) {
+             int miles = 0;
+            // Check what day the month starts on
+            if (i == 1 && j < firstDay) {
+               System.out.printf("%-9s", 0 + "-" + 0);
+               continue;
+            }
+
+            // Check if the month has ended
+            if (daysPerMonth > 30) {
+               miles = 0;
+               for (int k = 0; (j + k) < 7; ++k) {
+                  System.out.printf("%-9s", 0 + "-" + 0);
+               }
+               break;
+            }
+            else if (j == 0) miles = milesMon;
+            else if (j == 1) miles = milesTue;
+            else if (j == 2) miles = milesWed;
+            else if (j == 3) miles = milesThr;
+            else if (j == 4) miles = milesFri;
+            else if (j == 5) miles = milesSat;
+            else if (j == 6) miles = milesSun;
+     
+            System.out.printf("%-9s", daysPerMonth + "-" + miles);
+            totalWMiles += miles;
+            daysPerMonth++;
+         }
+         totalMiles += totalWMiles;
+         System.out.printf("%-9s\n", "W" + i + "-" + totalWMiles);
+
+         // Break the loop if the month has ended
+         if (daysPerMonth > 30) {
+            break;
+         }
       }
-        
+      System.out.println("Total Miles Driven: " + totalMiles);
    }
 }
