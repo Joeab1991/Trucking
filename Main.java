@@ -72,6 +72,14 @@ public class Main {
       System.out.println("Miles driven on " + sun + ": " + milesSun);
       System.out.println("First day of the month (0-Mon, 1-Tue, 2-Wed, 3-Thu, 4-Fri, 5-Sat, 6-Sun)");
       firstDay = scnr.nextInt();
+
+      System.out.println("First holiday (day of the month):");
+      int firstHoliday = scnr.nextInt();
+      System.out.println("Second holiday (day of the month):");
+      int secondHoliday = scnr.nextInt();
+      System.out.println("Third holiday (day of the month):");
+      int thirdHoliday = scnr.nextInt();
+
       System.out.println(" ");
 
       // creat a table header with column names (Week, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, Total/Week)
@@ -128,6 +136,14 @@ public class Main {
                }
                break;
             }
+
+            // Check if the day is a holiday
+            if (daysPerMonth == firstHoliday || daysPerMonth == secondHoliday || daysPerMonth == thirdHoliday) {
+               System.out.printf("%-9s", daysPerMonth + "-" + "0");
+               daysPerMonth++;
+               continue;
+            }
+
             else if (j == 0) miles = milesMon;
             else if (j == 1) miles = milesTue;
             else if (j == 2) miles = milesWed;
